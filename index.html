@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        body {
+            background: #2b2b2b;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+        }
+
+        main {
+            width: 80vw;
+            margin: 4em;
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: row;
+            flex: 0;
+        }
+
+        .header-image {
+            width: 40%;
+            display: flex;
+            overflow: hidden;
+        }
+        .header-image img {
+            object-fit: cover;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .header-title h2 {
+            font-size: 400%;
+            margin: 0;
+        }
+
+
+        .header-title p {
+            font-size: 150%;
+        }
+
+        #top-nav,
+        #bottom {
+            background: black;
+            padding: 1em;
+        }
+
+        #top-nav span {
+            padding: 0.25em;
+        }
+
+        #top-nav a,
+        .header-container a {
+            text-decoration: none;
+        }
+
+        #top-nav .current {
+            font-weight: bold;
+            border-bottom: 1px dotted white;
+        }
+
+        #bottom span {
+            margin: 0 1em;
+        }
+
+        #top-nav {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #top-nav a {
+            margin: 1em;
+        }
+
+        .hljs-ln-numbers {
+            padding-right: 1em !important;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="top-nav"></div>
+    <div class="main">
+        <div class="header-container">
+            <div class="header-image">
+                <img id="cover" width="100%"
+                    onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/encse/adventofcode/master/2023/media/elf.jpeg'" />
+            </div>
+
+            <div class="header-title">
+                <p class="text">Advent of Code</p>
+                <h2 id="problem-link"></h2>
+                <h2 id="problem-name"></h2>
+                <p class="text">in CSharp</p>
+                <p class="text"></p>
+                <p class="text"><em>by <a href="https://github.com/encse">encse</a></em></p>
+            </div>
+
+        </div>
+
+        <div class="content section">
+            <div class="content">
+                <div id="code-container">
+                    <pre class="language-csharp"></pre>
+                </div>
+                <div id="code-location"></div>
+
+            </div>
+        </div>
+
+        <div id="bottom">
+            <span>2023</span>
+            <span><a href="https://adventofcode.com">Advent of Code</a> is a registered trademark in the United
+                States</span>
+            <span>Image credit: <a href="https:/www.bing.com/images/create">Bing</a></span>
+        </div>
+    </div>
+    <script>
+        const url = new URL(window.location.href);
+        let day = parseInt(url.searchParams.get('day'), 10);
+        if (isNaN(day)) {
+            const currentDate = new Date();
+            const isDecember = currentDate.getMonth() === 11;
+            day = isDecember ? currentDate.getDate() : 1;
+        }
+
+        if (day < 1 || day > 25) {
+            day = 1;
+        }
+
+        if (day >= 1 && day < 25) {
+            const stDay = day.toString().padStart(2, '0');
+
+            const storyUrl = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/Day${stDay}/README.md`;
+
+            if (document.getElementById('day')) {
+                document.getElementById('day').innerText = day;
+            }
+
+            if (document.getElementById('problem-link')) {
+                let link = document.createElement('a');
+                link.text = `2023/${stDay}`
+                link.href = `https://adventofcode.com/2023/day/${stDay}`
+                document.getElementById('problem-link').appendChild(link);
+            }
+
+            document.getElementById('cover').src = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/media/${stDay}.jpeg`;
+            document.addEventListener('DOMContentLoaded', function () {
+                const githubUrl = `https://github.com/encse/adventofcode/blob/master/2023/Day${stDay}/Solution.cs`;
+                const fileUrl = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/Day${stDay}/Solution.cs`;
+                const codeContainer = document.getElementById('code-container');
+                const codeLocation = document.getElementById('code-location');
+
+                if (codeContainer && codeLocation) {
+                    fetch(fileUrl)
+                        .then(async response => ({text: await response.text(), status: response.status}))
+                        .then(response => {
+                            if (response.status < 400) {
+                                const block = codeContainer.getElementsByTagName('pre')[0];
+                                block.textContent = response.text;
+                                hljs.highlightBlock(block);
+                                hljs.lineNumbersBlock(block);
+                                codeLocation.innerHTML = `<p><a href="${githubUrl}">GitHub</a></p>`;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching the file:', error);
+                        });
+                }
+
+            });
+
+            fetch(storyUrl)
+                .then(response => response.text())
+                .then(text => {
+                    const match = text.match(/^## --- Day \d+: (.+?) ---/);
+                    if (match) {
+                        let link = document.createElement('a');
+                        link.text = match[1];
+                        link.href = `https://adventofcode.com/2023/day/${stDay}`
+                        document.getElementById('problem-name').appendChild(link);
+                    }
+                }).catch(error => {
+                    console.error('Error fetching the file:', error);
+                });
+        }
+
+        let topNav = document.getElementById('top-nav');
+        if (topNav) {
+            for (i = 1; i < 25; i++) {
+                const span = document.createElement('span');
+                let link = document.createElement('a');
+                link.text = i.toString().padStart(2, '0');
+                link.href = `?day=${i}`;
+                if (i == day) {
+                    span.classList.add("current");
+                }
+                span.appendChild(link);
+                topNav.appendChild(span);
+            }
+        }
+    </script>
+</body>
+
+</html>
