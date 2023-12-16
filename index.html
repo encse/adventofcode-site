@@ -122,7 +122,7 @@
         <div class="header-container">
             <div class="header-image">
                 <img id="cover" width="100%"
-                    onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/encse/adventofcode/master/2023/media/elf.jpeg'" />
+                    onerror="this.onerror=null; this.src='media/elf.jpeg'" />
             </div>
 
             <div class="header-title">
@@ -152,7 +152,7 @@
         <span>2023</span>
         <span><a href="https://adventofcode.com">Advent of Code</a> is a registered trademark in the United
             States</span>
-        <span>Image credit: <a href="https:/www.bing.com/images/create">Bing</a></span>
+        <span>Image credit: <a href="https://www.bing.com/images/create">Bing</a></span>
     </div>
     <script>
         const currentDate = new Date();
@@ -186,7 +186,7 @@
             document.getElementById('problem-link').appendChild(link);
         }
 
-        document.getElementById('cover').src = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/media/${stDay}.jpeg`;
+        document.getElementById('cover').src = `media/${stDay}.jpeg`;
         document.addEventListener('DOMContentLoaded', function () {
             const githubUrl = `https://github.com/encse/adventofcode/blob/master/2023/Day${stDay}/Solution.cs`;
             const fileUrl = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/Day${stDay}/Solution.cs`;
