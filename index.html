@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
@@ -24,12 +25,12 @@
             background: #2b2b2b;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Noto Sans', 'Arial', sans-serif;
             color: white;
         }
 
         .main {
-            width: 80vw;
+            width: 70vw;
             display: flex;
             flex-direction: column;
             padding: 1em;
@@ -37,8 +38,15 @@
             gap: 1em;
         }
 
+        /* .content {
+            width: 80%;
+        } */
+
         @media (max-width: 1024px) {
             .main {
+                width: 100%;
+            }
+            .content {
                 width: 100%;
             }
         }
@@ -119,6 +127,10 @@
             padding-right: 1em !important;
             text-align: right;
         }
+
+        .content {
+            font-size: large;
+        }
     </style>
 </head>
 
@@ -143,6 +155,8 @@
         </div>
 
         <div class="content">
+            <div id="notes">
+            </div>
             <div id="code-container">
                 <pre class="language-csharp"></pre>
             </div>
@@ -177,6 +191,8 @@
         const stDay = day.toString().padStart(2, '0');
 
         const storyUrl = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/Day${stDay}/README.md`;
+        const notesUrl = `media/${stDay}.md`;
+
 
         if (document.getElementById('day')) {
             document.getElementById('day').innerText = day;
@@ -228,6 +244,19 @@
             }).catch(error => {
                 console.error('Error fetching the file:', error);
             });
+
+        const notesContainer = document.getElementById('notes');
+        if (notesContainer) {
+            fetch(notesUrl)
+                .then(async response => ({text: await response.text(), status: response.status}))
+                .then(response => {
+                    if (response.status < 400) {
+                        notesContainer.innerHTML = marked.parse(response.text);
+                    }
+                }).catch(error => {
+                    console.error('Error fetching the file:', error);
+                });
+        }
 
         let topNav = document.getElementById('top-nav');
         if (topNav) {
