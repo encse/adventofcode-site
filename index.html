@@ -27,10 +27,17 @@
             font-family: 'Arial', sans-serif;
             color: white;
         }
-        
+
         .main {
-            max-width: 80vw;
+            width: 80vw;
+            padding: 1em;
             margin: 4em auto;
+        }
+
+        @media (max-width: 1024px) {
+            .main {
+                width: 100%;
+            }
         }
 
         .header-container {
@@ -38,6 +45,7 @@
             flex-direction: row;
             flex-wrap: wrap-reverse;
             justify-content: center;
+            gap: 1em;
         }
 
         .header-image {
@@ -59,15 +67,10 @@
             text-align: center;
         }
 
-        .content {
-            padding: 20px;
-        }
-
         .header-title h2 {
             font-size: 400%;
             margin: 0;
         }
-
 
         .header-title p {
             font-size: 150%;
