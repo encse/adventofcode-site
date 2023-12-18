@@ -181,7 +181,8 @@
         <span>2023</span>
         <span><a href="https://adventofcode.com">Advent of Code</a> is a registered trademark in the United
             States</span>
-        <span>Image credit: <a href="https://www.bing.com/images/create">Bing</a></span>
+        <span>Image credit <a href="https://www.bing.com/images/create">Bing</a></span>
+        <span>Support me <a href="https://github.com/sponsors/encse">here</a>!</span>
     </div>
     <script>
         const currentDate = new Date();
@@ -230,7 +231,7 @@
                             block.textContent = response.text;
                             hljs.highlightBlock(block);
                             hljs.lineNumbersBlock(block);
-                            codeLocation.innerHTML = `<p><a href="${githubUrl}">GitHub</a></p>`;
+                            codeLocation.innerHTML = `<p>Like my <a href="${githubUrl}">repo</a>?</p>`;
                         }
                     })
                     .catch(error => {
