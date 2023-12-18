@@ -145,7 +145,7 @@
 
             <div class="header-title">
                 <p class="text">Advent of Code</p>
-                <h2 id="problem-link"></h2>
+                <h2 id="problem-id"></h2>
                 <h2 id="problem-name"></h2>
                 <p class="text">in C#</p>
                 <p class="text"></p>
@@ -155,6 +155,8 @@
         </div>
 
         <div class="content">
+            <div id="problem-link">
+            </div>
             <div id="notes">
             </div>
             <div id="code-container">
@@ -162,7 +164,6 @@
             </div>
             <div id="code-location"></div>
         </div>
-
       
     </div>
     <div id="bottom">
@@ -198,11 +199,8 @@
             document.getElementById('day').innerText = day;
         }
 
-        if (document.getElementById('problem-link')) {
-            let link = document.createElement('a');
-            link.text = `2023/${stDay}`
-            link.href = `https://adventofcode.com/2023/day/${stDay}`
-            document.getElementById('problem-link').appendChild(link);
+        if (document.getElementById('problem-id')) {
+            document.getElementById('problem-id').innerText = `2023/${stDay}`;
         }
 
         document.getElementById('cover').src = `media/${stDay}.jpeg`;
@@ -236,10 +234,12 @@
             .then(text => {
                 const match = text.match(/^## --- Day \d+: (.+?) ---/);
                 if (match) {
-                    let link = document.createElement('a');
-                    link.text = match[1];
-                    link.href = `https://adventofcode.com/2023/day/${stDay}`
-                    document.getElementById('problem-name').appendChild(link);
+                    document.getElementById('problem-name').innerText = match[1];
+                    if (document.getElementById('problem-link')) {
+                        let link = `https://adventofcode.com/2023/day/${stDay}`
+                        document.getElementById('problem-link').innerHTML = 
+                            `The problem statement is available <a href="${link}">here</a>.`;
+                    }
                 }
             }).catch(error => {
                 console.error('Error fetching the file:', error);
