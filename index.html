@@ -45,7 +45,7 @@
         .content {
             font-size: large;
         }
-
+        
         @media (max-width: 1024px) {
             .main {
                 width: 100%;
@@ -121,8 +121,12 @@
             border-bottom: 1px dotted white;
         }
 
-        #bottom span {
-            margin: 0 1em;
+        #bottom {
+            background: black;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+            justify-content: center;
         }
 
         #top-nav {
@@ -178,11 +182,10 @@
 
     </div>
     <div id="bottom">
-        <span>2023</span>
         <span><a href="https://adventofcode.com">Advent of Code</a> is a registered trademark in the United
             States</span>
         <span>Images are provided by <a href="https://www.bing.com/images/create">Bing</a> image creator</span>
-        <span>You can <a href="https://github.com/sponsors/encse">support</a> me! ☕ </span>
+        <span>2023</span>
     </div>
     <script>
         const currentDate = new Date();
@@ -231,7 +234,7 @@
                             block.textContent = response.text;
                             hljs.highlightBlock(block);
                             hljs.lineNumbersBlock(block);
-                            codeLocation.innerHTML = `<p>Like my <a href="${githubUrl}">repo</a>?</p>`;
+                            codeLocation.innerHTML = `<p>Like my <a href="${githubUrl}">repo</a>? You can <a href="https://github.com/sponsors/encse">support</a> me! ☕</p>`;
                         }
                     })
                     .catch(error => {
