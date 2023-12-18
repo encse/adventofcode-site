@@ -257,7 +257,7 @@
                             `The original problem description is available `,
                             `Visit the AdventOfCode website for the problem statement `,
                         ]
-                        let intro = intros[intros.length % day];
+                        let intro = intros[day % intros.length];
                         document.getElementById('problem-link').innerHTML =
                             `${intro} <a href="${link}">here</a>.`;
                     }
