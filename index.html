@@ -15,6 +15,10 @@
     <style>
         * {
             box-sizing: border-box;
+            /* text is too big without these in my iphone */
+            -moz-text-size-adjust: none;
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
         }
 
         a {
@@ -52,6 +56,12 @@
                 font-size: 100%;
             }
 
+        }
+
+        @media (orientation: landscape) {
+            main {
+                width: 90%;
+            }
         }
 
         .header-container {
@@ -131,13 +141,6 @@
         .hljs-ln-numbers {
             padding-right: 1em !important;
             text-align: right;
-        }
-
-        .hljs {
-            /* text is too big without these in my iphone */
-            -moz-text-size-adjust: none;
-            -webkit-text-size-adjust: none;
-            text-size-adjust: none;
         }
     </style>
 </head>
