@@ -247,9 +247,9 @@
                 if (match) {
                     document.getElementById('problem-name').innerText = match[1];
                     if (document.getElementById('problem-link')) {
-                        let link = `https://adventofcode.com/2023/day/${stDay}`
+                        let link = `https://adventofcode.com/2023/day/${day}`
                         document.getElementById('problem-link').innerHTML =
-                            `The problem statement is available <a href="${link}">here</a>.`;
+                            `If you are not familiar with the problem, you can read about it <a href="${link}">here</a>.`;
                     }
                 }
             }).catch(error => {
