@@ -195,8 +195,6 @@
         </div>
 
         <div class="content">
-            <div id="problem-link">
-            </div>
             <div id="notes">
             </div>
             <div id="code-container" class="hljs language-csharp">
@@ -271,20 +269,6 @@
                 const match = text.match(/^## --- Day \d+: (.+?) ---/);
                 if (match) {
                     document.getElementById('problem-name').innerText = match[1];
-                    if (document.getElementById('problem-link')) {
-                        let link = `https://adventofcode.com/2023/day/${day}`;
-                        let intros = [
-                            `If you are not familiar with the problem, you can read it`,
-                            `Those who need a refresh can read the problem`,
-                            `The task description is copyrighted, but it's available`,
-                            `Let's revisit the problem description`,
-                            `The original problem description is available`,
-                            `Visit the Advent of Code website for the problem statement`,
-                        ]
-                        let intro = intros[day % intros.length];
-                        document.getElementById('problem-link').innerHTML =
-                            `${intro} <a href="${link}">here</a>.`;
-                    }
                 }
 
                 const notesContainer = document.getElementById('notes');
@@ -292,7 +276,7 @@
                     let lines = text.split('\n');
                     while (lines.length > 0) {
                         let line = lines.shift();
-                        if (line.includes("--- Notes ---")) {
+                        if (line.match(/^## --- Day \d+: (.+?) ---/)) {
                             break;
                         }
                     }
