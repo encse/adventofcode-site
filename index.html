@@ -146,6 +146,7 @@
             padding-right: 1em !important;
             text-align: right;
         }
+
         .content {
             line-height: 1.5;
             margin-top: 2em;
@@ -211,8 +212,6 @@
         const stDay = day.toString().padStart(2, '0');
 
         const storyUrl = `https://raw.githubusercontent.com/encse/adventofcode/master/2023/Day${stDay}/README.md`;
-        const notesUrl = `media/${stDay}.md`;
-
 
         if (document.getElementById('day')) {
             document.getElementById('day').innerText = day;
@@ -269,22 +268,20 @@
                             `${intro} <a href="${link}">here</a>.`;
                     }
                 }
-            }).catch(error => {
-                console.error('Error fetching the file:', error);
-            });
 
-        const notesContainer = document.getElementById('notes');
-        if (notesContainer) {
-            fetch(notesUrl)
-                .then(async response => ({ text: await response.text(), status: response.status }))
-                .then(response => {
-                    if (response.status < 400) {
-                        notesContainer.innerHTML = marked.parse(response.text);
+                const notesContainer = document.getElementById('notes');
+                if (notesContainer) {
+                    let lines = text.split('\n');
+                    while (lines.length > 0) {
+                        let line = lines.shift();
+                        if (line.includes("--- Notes ---")) {
+                            break;
+                        }
                     }
-                }).catch(error => {
-                    console.error('Error fetching the file:', error);
-                });
-        }
+                    const notes = lines.join('\n');
+                    notesContainer.innerHTML = marked.parse(notes);
+                }
+            });
 
         let topNav = document.getElementById('top-nav');
         if (topNav) {
