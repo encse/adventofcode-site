@@ -256,7 +256,9 @@
                             codeContainer.appendChild(block);
                             block.textContent = response.text;
                             hljs.highlightElement(block);
-                            codeLocation.innerHTML = `<p>Show your ♡ with a <a href="${githubUrl}">like</a>! Thanks!</p>`;
+                            codeLocation.innerHTML = `
+                                <p>Please ☆ my <a href="${githubUrl}">repo</a> if you like it!</p>
+                            `;
                         }
                     })
                     .catch(error => {
