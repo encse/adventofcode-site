@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
+        html {
+            --theme-background-color: #2b2b2b;
+            --theme-background-color2: #0d1117;
+        }
         * {
             box-sizing: border-box;
             /* text is too big without these in my iphone */
@@ -33,7 +35,7 @@
         }
 
         body {
-            background: #2b2b2b;
+            background: var(--theme-background-color);
             margin: 0;
             padding: 0;
             font-family: 'Noto Sans', 'Arial', sans-serif;
@@ -91,7 +93,7 @@
 
         #top-nav,
         #bottom {
-            background: black;
+            background: var(--theme-background-color2);
             padding: 1em;
         }
 
@@ -102,12 +104,12 @@
         }
 
         #top-nav .current {
-            color: black;
+            color: var(--theme-background-color2);
             background: white;
         }
 
         #bottom {
-            background: black;
+            background: var(--theme-background-color2);
             display: flex;
             flex-wrap: wrap;
             gap: 2em;
@@ -126,6 +128,11 @@
 
         #code-container {
             overflow: auto;
+            padding: 1em;
+        }
+
+        .hljs {
+            background: var(--theme-background-color2);
         }
 
         .hljs-ln-numbers {
@@ -192,8 +199,7 @@
             </div>
             <div id="notes">
             </div>
-            <div id="code-container">
-                <pre class="language-csharp"></pre>
+            <div id="code-container" class="hljs language-csharp">
             </div>
             <div id="code-location"></div>
         </div>
@@ -245,10 +251,10 @@
                     .then(async response => ({ text: await response.text(), status: response.status }))
                     .then(response => {
                         if (response.status < 400) {
-                            const block = codeContainer.getElementsByTagName('pre')[0];
+                            let block = document.createElement('pre');
+                            codeContainer.appendChild(block);
                             block.textContent = response.text;
                             hljs.highlightElement(block);
-                            hljs.lineNumbersBlock(block);
                             codeLocation.innerHTML = `<p>Like my <a href="${githubUrl}">repo</a>? You can <a href="https://github.com/sponsors/encse">support</a> me! ☕</p>`;
                         }
                     })
