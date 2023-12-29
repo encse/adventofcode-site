@@ -247,7 +247,7 @@
                         if (response.status < 400) {
                             const block = codeContainer.getElementsByTagName('pre')[0];
                             block.textContent = response.text;
-                            hljs.highlightBlock(block);
+                            hljs.highlightElement(block);
                             hljs.lineNumbersBlock(block);
                             codeLocation.innerHTML = `<p>Like my <a href="${githubUrl}">repo</a>? You can <a href="https://github.com/sponsors/encse">support</a> me! ☕</p>`;
                         }
