@@ -22,6 +22,7 @@
             --theme-background-color: #2b2b2b;
             --theme-background-color2: #0d1117;
         }
+
         * {
             box-sizing: border-box;
             /* text is too big without these in my iphone */
@@ -67,6 +68,7 @@
             display: flex;
             min-width: 400px;
             overflow: hidden;
+            position: relative;
         }
 
         .header-image img {
@@ -299,6 +301,22 @@
                 topNav.appendChild(span);
             }
         }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let container = document.querySelector(".header-image");
+            let movingImage = document.querySelector(".header-image img");
+
+            window.addEventListener("scroll", function () {
+                let scrollAmount = window.scrollY / 10;
+                let containerWidth = container.offsetWidth;
+                let imageSize = movingImage.offsetHeight;
+                let maxLeft = (containerWidth -  imageSize)/2;
+                let newLeft = maxLeft + Math.max(maxLeft, -scrollAmount);
+                movingImage.style.objectPosition = `${newLeft}px 0`;
+            });
+        });
+
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8Y1BWSSF3"></script>
     <script>
